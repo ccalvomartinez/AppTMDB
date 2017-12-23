@@ -32,7 +32,7 @@ private extension PosterStripPresenter {
 
 		imageRepository.image(at: path, size: .w300)
 			.observeOn(MainScheduler.instance)
-			.bind(to: cell.posterView.rx.image(transitionType: kCATransitionFade))
+			.bind(to: cell.posterView.rx.image)
 			.disposed(by: cell.disposeBag)
 	}
 }

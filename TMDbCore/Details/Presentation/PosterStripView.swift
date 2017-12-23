@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class PosterStripView: UIView, PNibLoadableView {
+final class PosterStripView: UIView, NibLoadableView {
 	private enum Constants {
 		static let height: CGFloat = 218
 	}

@@ -8,8 +8,9 @@
 
 import Foundation
 
-enum MediaType {
+enum MediaType{
 	case movie
 	case show
 	case person
 }
+	

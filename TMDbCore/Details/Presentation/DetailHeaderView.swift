@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-final class DetailHeaderView: UIView, PNibLoadableView {
+final class DetailHeaderView: UIView, NibLoadableView {
 	private enum Constants {
 		static let height: CGFloat = 280
 	}

@@ -1,7 +1,7 @@
 import UIKit
 import RxSwift
 
-final class SearchResultCell: UITableViewCell, PReusableView, PNibLoadableView {
+final class SearchResultCell: UITableViewCell, ReusableView, NibLoadableView {
 	// MARK: - Outlets
 
 	@IBOutlet var posterView: UIImageView!
@@ -17,6 +17,8 @@ final class SearchResultCell: UITableViewCell, PReusableView, PNibLoadableView {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
+
+		posterView.image = nil
 		disposeBag = DisposeBag()
 	}
 }

@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-final class PosterStripCell: UICollectionViewCell, PReusableView, PNibLoadableView {
+final class PosterStripCell: UICollectionViewCell, ReusableView, NibLoadableView {
 	// MARK: - Outlets
 
 	@IBOutlet var posterView: UIImageView!
@@ -24,6 +24,7 @@ final class PosterStripCell: UICollectionViewCell, PReusableView, PNibLoadableVi
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
+		posterView.image = nil
 		disposeBag = DisposeBag()
 	}
 }

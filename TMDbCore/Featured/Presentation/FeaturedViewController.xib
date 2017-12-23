@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeaturedViewController" customModule="TMDbCore" customModuleProvider="target">
             <connections>
+                <outlet property="loadingView" destination="r7b-r0-DXc" id="95Y-HJ-aBk"/>
                 <outlet property="moviesLabel" destination="Wvn-6H-KIs" id="b6w-ug-CSc"/>
                 <outlet property="moviesStackView" destination="gOC-gZ-6gY" id="G0r-JE-mMx"/>
+                <outlet property="scrollView" destination="cOB-mT-zVj" id="5RH-eF-WKs"/>
                 <outlet property="showsLabel" destination="fvk-fo-JMz" id="AZS-P1-Te4"/>
                 <outlet property="showsStackView" destination="uRq-Mz-ice" id="vQZ-z8-CyU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -23,6 +25,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="r7b-r0-DXc" userLabel="Loading">
+                    <rect key="frame" x="150" y="20" width="20" height="548"/>
+                </activityIndicatorView>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOB-mT-zVj">
                     <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                     <subviews>
@@ -32,14 +37,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uRq-Mz-ice">
+                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="176" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uRq-Mz-ice">
                             <rect key="frame" x="0.0" y="43.5" width="320" height="176"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="176" translatesAutoresizingMaskIntoConstraints="NO" id="PaE-3X-WnU" userLabel="Placeholder">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
-                            </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wvn-6H-KIs">
                             <rect key="frame" x="16" y="235.5" width="41.5" height="19.5"/>
@@ -47,14 +46,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gOC-gZ-6gY">
+                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="176" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gOC-gZ-6gY">
                             <rect key="frame" x="0.0" y="263" width="320" height="176"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="176" translatesAutoresizingMaskIntoConstraints="NO" id="yzn-M9-d3q" userLabel="Placeholder">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
-                            </subviews>
                         </stackView>
                     </subviews>
                     <constraints>
@@ -79,7 +72,10 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="cOB-mT-zVj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KcD-lZ-Gil"/>
+                <constraint firstItem="r7b-r0-DXc" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="LWH-bv-chc"/>
+                <constraint firstItem="r7b-r0-DXc" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Qh3-sO-FlU"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cOB-mT-zVj" secondAttribute="bottom" id="VFl-js-6a8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="r7b-r0-DXc" secondAttribute="bottom" id="VYb-gP-3Zf"/>
                 <constraint firstItem="cOB-mT-zVj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="YaQ-ze-nP7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cOB-mT-zVj" secondAttribute="trailing" id="zAM-9c-U2h"/>
             </constraints>

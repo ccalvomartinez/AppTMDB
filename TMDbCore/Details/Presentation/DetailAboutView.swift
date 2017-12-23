@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DetailAboutView: UIView, PNibLoadableView {
+final class DetailAboutView: UIView, NibLoadableView {
 	// MARK: - Outlets
 
 	@IBOutlet var titleLabel: UILabel!

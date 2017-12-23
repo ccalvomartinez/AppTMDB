@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-final class CardView: UIView, PNibLoadableView {
+final class CardView: UIView, NibLoadableView {
 	private enum Constants {
 		static let height: CGFloat = 176
 	}

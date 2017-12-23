@@ -37,22 +37,22 @@ let some = Observable.from(["🤔", "🤡"])
 let error = Observable<Data>.error(APIError.invalidKey)
 
 let hello = Observable<String>.create { observer in
-    observer.onNext("Hello")
-    observer.onNext("World")
-    observer.onCompleted()
+	observer.onNext("Hello")
+	observer.onNext("World")
+	observer.onCompleted()
 
-    return Disposables.create()
+	return Disposables.create()
 }
 
 let d = hello.subscribe { event in
-    switch event {
-    case .next(let value):
-        print(value)
-    case .error(let error):
-        print(error)
-    case .completed:
-        print("completed")
-    }
+	switch event {
+	case .next(let value):
+		print(value)
+	case .error(let error):
+		print(error)
+	case .completed:
+		print("completed")
+	}
 }
 d.dispose()
 
@@ -61,58 +61,58 @@ let apiURL = URL(string: "https://randomuser.me/api")!
 let decoder = JSONDecoder()
 
 func data(with url: URL) -> Observable<Data> {
-    return Observable<Data>.create { observer in
-        let task = session.dataTask(with: url) { data, _, error in
-            if let error = error {
-                observer.onError(error)
-            } else {
-                observer.onNext(data ?? Data())
-                observer.onCompleted()
-            }
-        }
+	return Observable<Data>.create { observer in
+		let task = session.dataTask(with: url) { data, _, error in
+			if let error = error {
+				observer.onError(error)
+			} else {
+				observer.onNext(data ?? Data())
+				observer.onCompleted()
+			}
+		}
 
-        task.resume()
+		task.resume()
 
-        return Disposables.create {
-            print("cancelled")
-            task.cancel()
-        }
-    }
+		return Disposables.create {
+			print("cancelled")
+			task.cancel()
+		}
+	}
 }
 
 func randomUser() -> Observable<UserResponse> {
-    return data(with: apiURL).map { data in
-        try decoder.decode(UserResponse.self, from: data)
-    }
+	return data(with: apiURL).map { data in
+		try decoder.decode(UserResponse.self, from: data)
+	}
 }
 
 func image(with url: URL) -> Observable<UIImage> {
-    return data(with: url).map {
-        guard let image = UIImage(data: $0) else {
-            throw APIError.notAnImage
-        }
+	return data(with: url).map {
+		guard let image = UIImage(data: $0) else {
+			throw APIError.notAnImage
+		}
 
-        return image
-    }
+		return image
+	}
 }
 
 let disposeBag = DisposeBag()
 
 randomUser()
-    .map { userResponse in
-        userResponse.results[0]
-    }
-    .flatMap { user in
-        return image(with: user.picture.large)
-    }
-    .observeOn(MainScheduler.instance)
-    .subscribe(onNext: {
-        let image = $0
-        print(image)
-    }, onError: { error in
-        print(error)
-    })
-    .disposed(by: disposeBag)
+	.map { userResponse in
+		userResponse.results[0]
+	}
+	.flatMap { user in
+		return image(with: user.picture.large)
+	}
+	.observeOn(MainScheduler.instance)
+	.subscribe(onNext: {
+		let image = $0
+		print(image)
+	}, onError: { error in
+		print(error)
+	})
+	.disposed(by: disposeBag)
 
 let cell = UITableViewCell()
 let size = cell.imageView?.image?.size

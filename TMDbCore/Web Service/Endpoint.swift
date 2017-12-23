@@ -12,6 +12,10 @@ internal enum Endpoint {
 	case configuration
 	case moviesNowPlaying(region: String, page: Int)
 	case showsOnTheAir(page: Int)
+    case searchResults(query: String, page: Int)
+    case movie(identifier: Int64)
+    case show(identifier: Int64)
+    case person(identifier: Int64)
 }
 
 internal extension Endpoint {
@@ -48,10 +52,18 @@ private extension Endpoint {
 			return "movie/now_playing"
 		case .showsOnTheAir:
 			return "tv/on_the_air"
-		}
+        case .searchResults:
+            return "search/multi"
+        case .movie(let identifier):
+            return "movie/\(identifier)"
+        case .show(let identifier):
+            return "tv/\(identifier)"
+        case .person(let identifier):
+             return "person/\(identifier)"
+        }
 	}
 	var parameters: [String: String] {
-		switch self {
+			switch self {
 		case .configuration:
 			return [:]
 		case .moviesNowPlaying(let region, let page):
@@ -61,6 +73,17 @@ private extension Endpoint {
 			]
 		case .showsOnTheAir(let page):
 			return [ "page": String(page) ]
-		}
+        case .searchResults(let query, let page):
+            return [
+                "query": query,
+                "page": String(page)
+            ]
+        case .movie:
+            return [ "append_to_response": "credits" ]
+        case .show:
+            return [ "append_to_response": "credits" ]
+        case .person:
+            return [ "append_to_response": "tagged_images,combined_credits" ]
+        }
 	}
 }

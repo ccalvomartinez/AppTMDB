@@ -1,10 +1,10 @@
 import UIKit
 
-protocol PReusableView: class {
+protocol ReusableView: class {
 	static var defaultReuseIdentifier: String { get }
 }
 
-extension PReusableView where Self: UIView {
+extension ReusableView where Self: UIView {
 
 	static var defaultReuseIdentifier: String {
 		return String(describing: self)

@@ -33,7 +33,7 @@ private extension DetailHeaderPresenter {
 
 		imageRepository.image(at: path, size: .w780)
 			.observeOn(MainScheduler.instance)
-			.bind(to: view.backdropView.rx.image(transitionType: kCATransitionFade))
+			.bind(to: view.backdropView.rx.image)
 			.disposed(by: view.disposeBag)
 	}
 
@@ -44,7 +44,7 @@ private extension DetailHeaderPresenter {
 
 		imageRepository.image(at: path, size: .w300)
 			.observeOn(MainScheduler.instance)
-			.bind(to: view.posterView.rx.image(transitionType: kCATransitionFade))
+			.bind(to: view.posterView.rx.image)
 			.disposed(by: view.disposeBag)
 	}
 }

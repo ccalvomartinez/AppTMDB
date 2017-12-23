@@ -1,11 +1,11 @@
 import UIKit
 
-protocol PNibLoadableView: class {
+protocol NibLoadableView: class {
 	static var nibName: String { get }
 	static func instantiate() -> Self
 }
 
-extension PNibLoadableView where Self: UIView {
+extension NibLoadableView where Self: UIView {
 	static var nibName: String {
 		return String(describing: self)
 	}
